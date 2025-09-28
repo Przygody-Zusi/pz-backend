@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.14
+          python-version: 3.11
 
       - name: Install dev dependencies
         run: |
@@ -45,8 +45,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./backend/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-backend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/fastapi-backend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/pz-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/pz-backend:${{ github.sha }}

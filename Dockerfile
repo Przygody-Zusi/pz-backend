@@ -1,4 +1,4 @@
-FROM python:3.14.0rc3-alpine3.22 AS builder
+FROM python:3.11-slim-bookworm AS builder
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN pip install --upgrade pip \
  && pip install --prefix=/install -r requirements.txt
 
-FROM python:3.14.0rc3-alpine3.22 AS runner
+FROM python:3.11-slim-bookworm AS runner
 
 WORKDIR /app
 
