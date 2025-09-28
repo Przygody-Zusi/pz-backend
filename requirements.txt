@@ -4,4 +4,3 @@ uvicorn[standard]
 # Dev tools
 black
 flake8
-pre-commit

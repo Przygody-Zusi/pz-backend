@@ -1,7 +1,7 @@
-from fastapi import FASTAPI
+from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FASTAPI()
+app = FastAPI()
 
 
 class GenerateRequest(BaseModel):
@@ -15,7 +15,7 @@ class GenerateResposne(BaseModel):
 @app.post("/api/hello", response_model=GenerateResposne)
 async def hello(req: GenerateRequest):
     hello_reposnse = f"Echo from backend: {req.prompt}"
-    return {"result": hello_reposnse}
+    return {"result": hello_reposnse, "magic_number": 42}
 
 
 @app.get("/health")
