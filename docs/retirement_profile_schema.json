@@ -1,0 +1,26 @@
+{
+    "profile": {
+        "person_id": "uuid",
+        "date_of_birth": "YYYY-MM-DD",
+        "gender": "male|female",
+        "employment_start_date": "YYYY-MM-DD",
+        "actual_retirement_age": 65
+    },
+    "retirement_goals": {
+        "initial_prompt": "string",
+        "expected_retirement_age": 65,
+        "expected_life_status": "<0.0;1.0>"
+    },
+    "contribution_periods": [
+        {
+            "period_name": "string",
+            "start_date": "YYYY-MM-DD",
+            "end_date": "YYYY-MM-DD",
+            "gross_income": 0.0,
+            "employment_type": "employment_contract|self_employed|mandate_contract|non_working",
+            "zus_contribution": 0.0,
+            "non_contributory_period_type": "none|sick_leave|maternity_leave",
+            "non_contributory_days": 0
+        }
+    ]
+}
