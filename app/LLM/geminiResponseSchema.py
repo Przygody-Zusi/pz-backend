@@ -4,9 +4,9 @@ from google.genai import types
 contribution_period_schema = types.Schema(
     type=types.Type.OBJECT,
     properties={
-        "period_name": types.Schema(
-            type=types.Type.STRING, description="Nazwa okresu składkowego."
-        ),
+        # "period_name": types.Schema(
+        #     type=types.Type.STRING, description="Nazwa okresu składkowego."
+        # ),
         "start_date": types.Schema(
             type=types.Type.STRING,
             description="Data rozpoczęcia okresu w formacie YYYY",
@@ -26,28 +26,13 @@ contribution_period_schema = types.Schema(
                 "employment_contract",
                 "self_employed",
                 "mandate_contract",
-                "non_working",
+                "maternity_leave",
+                "parental_leave",
+                "no_employment",
             ],
         ),
-        "non_contributory_period_type": types.Schema(
-            type=types.Type.STRING,
-            description="Rodzaj okresu nieskładkowego, jeśli dotyczy (enum).",
-            enum=["none", "sick_leave", "maternity_leave"],
-        ),
-        "non_contributory_days": types.Schema(
-            type=types.Type.INTEGER,
-            description="Liczba dni nieskładkowych w tym okresie.",
-        ),
     },
-    required=[
-        "period_name",
-        "start_date",
-        "end_date",
-        "gross_income",
-        "employment_type",
-        "non_contributory_period_type",
-        "non_contributory_days",
-    ],
+    required=["start_date", "end_date", "gross_income", "employment_type"],
 )
 
 

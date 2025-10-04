@@ -15,7 +15,7 @@
             "start_date": "YYYY",
             "end_date": "YYYY",
             "gross_income": 0.0,
-            "employment_type": "employment_contract|self_employed|mandate_contract|maternity_leave|parental_leave"
+            "employment_type": "employment_contract|self_employed|mandate_contract|maternity_leave|parental_leave|no_employment"
         }
     ]
 }
