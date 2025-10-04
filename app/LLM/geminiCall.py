@@ -57,7 +57,7 @@ def generate_profile(request: GenerateProfileRequest):
 
         # Zwracamy surowy tekst JSON jako odpowiedź
         print(new_profile_json)
-        return {"profile_json": new_profile_json}
+        return new_profile_json
 
     except Exception as e:
         print(f"Błąd generowania: {e}")
@@ -82,7 +82,7 @@ def update_profile(request: UpdateProfileRequest):
         )
 
         # Zwracamy surowy tekst JSON jako odpowiedź
-        return {"profile_json": updated_profile_json}
+        return updated_profile_json
 
     except Exception as e:
         print(f"Błąd aktualizacji: {e}")

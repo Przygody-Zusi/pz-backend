@@ -43,9 +43,9 @@ async def health():
 
 @app.post("/api/LLM/generate", response_description="Wygenerowany profil JSON")
 def generate_profile_endpoint(request: GenerateProfileRequest):
-    generate_profile(request)
+    return generate_profile(request)
 
 
 @app.post("/api/LLM/update", response_description="Zaktualizowany profil JSON")
 def update_profile_endpoint(request: UpdateProfileRequest):
-    update_profile(request)
+    return update_profile(request)
