@@ -5,8 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.LLM.geminiCall import (
     generate_profile,
     update_profile,
+    generate_suggestions_for_next_step,
     GenerateProfileRequest,
     UpdateProfileRequest,
+    SuggestNextStepRequest,
 )
 
 app = FastAPI()
@@ -49,3 +51,11 @@ def generate_profile_endpoint(request: GenerateProfileRequest):
 @app.post("/api/LLM/update", response_description="Zaktualizowany profil JSON")
 def update_profile_endpoint(request: UpdateProfileRequest):
     return update_profile(request)
+
+
+@app.post(
+    "/api/LLM/suggest",
+    response_description="Propozycje kolejnego etapu w zyciu człowieka",
+)
+def suggest_next_step_endpoint(request: SuggestNextStepRequest):
+    return generate_suggestions_for_next_step(request)

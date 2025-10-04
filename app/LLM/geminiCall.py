@@ -4,12 +4,15 @@ import os
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+import json
 
 # 1. Zmiana importów dla struktury folderów:
 # Zakładamy, że moduły są w folderze LLM/
 from app.LLM.geminiResponseSchema import response_schema
 from app.LLM.geminiCreateInitialProfile import generate_initial_profile
 from app.LLM.geminiUpdateProfile import update_user_profile
+from app.LLM.geminiSuggestNextStep import suggest_next_contribution_period
+from app.LLM.schema_types import UserProfile
 
 # --- INICJALIZACJA I KONFIGURACJA KLIENTA ---
 load_dotenv()
@@ -34,12 +37,21 @@ class GenerateProfileRequest(BaseModel):
 class UpdateProfileRequest(BaseModel):
     """Model dla endpointu /update"""
 
-    old_profile: str = Field(
+    old_profile: UserProfile = Field(
         ..., description="Istniejący profil JSON, który ma zostać zaktualizowany."
     )
     prompt: str = Field(
         ...,
         description="Prośba użytkownika o modyfikację profilu (np. 'Chcę przejść na emeryturę w wieku 70 lat').",
+    )
+
+
+class SuggestNextStepRequest(BaseModel):
+    """Model dla endpointu /suggest"""
+
+    old_profile: UserProfile = Field(
+        ...,
+        description="Istniejący profil JSON, do którego ma zostać sugerowany następny etap.",
     )
 
 
@@ -57,7 +69,7 @@ def generate_profile(request: GenerateProfileRequest):
 
         # Zwracamy surowy tekst JSON jako odpowiedź
         print(new_profile_json)
-        return new_profile_json
+        return json.loads(new_profile_json)
 
     except Exception as e:
         print(f"Błąd generowania: {e}")
@@ -82,10 +94,33 @@ def update_profile(request: UpdateProfileRequest):
         )
 
         # Zwracamy surowy tekst JSON jako odpowiedź
-        return updated_profile_json
+        return json.loads(updated_profile_json)
 
     except Exception as e:
         print(f"Błąd aktualizacji: {e}")
         raise HTTPException(
             status_code=500, detail=f"Update failed: {str(e)}. Sprawdź logs."
+        )
+
+
+def generate_suggestions_for_next_step(request: SuggestNextStepRequest):
+    """
+    Sugeruje kolejne kroki emerytalne na podstawie istniejącego profilu.
+    """
+    try:
+        # Wywołanie funkcji z LLM/geminiSuggestNextStep.py
+        # Używa wbudowanej w tę funkcją konfiguracji wymuszającej JSON Schema (T=0.01)
+        suggestions = suggest_next_contribution_period(
+            client=client,
+            model_name=MODEL_NAME,
+            old_profile_json=request.old_profile,
+        )
+
+        # Zwracamy surowy tekst JSON jako odpowiedź
+        return json.loads(suggestions)
+
+    except Exception as e:
+        print(f"Błąd sugerowania: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Suggestion failed: {str(e)}. Sprawdź logs."
         )

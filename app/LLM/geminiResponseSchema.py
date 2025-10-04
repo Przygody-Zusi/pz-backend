@@ -101,3 +101,9 @@ response_schema = types.Schema(
     },
     required=["profile", "retirement_goals", "contribution_periods"],
 )
+
+suggestions_schema = types.Schema(
+    type=types.Type.ARRAY,
+    description="Sugestie dla kolejnego kroku.",
+    items=contribution_period_schema,
+)
