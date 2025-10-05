@@ -15,10 +15,9 @@ retirement_goals = {
 def c_how_many_more_years(
     last_salary, total_savings_contemporary, goal, years_to_live_average
 ):
-    years = (years_to_live_average * goal - total_savings_contemporary) / (
+    return (years_to_live_average * goal - total_savings_contemporary) / (
         last_salary * 12 + goal
     )
-    return round(years, 1)
 
 
 def check_how_many_more_years_for_goals(last_salary, valorized, years_to_live_average):
@@ -30,7 +29,7 @@ def check_how_many_more_years_for_goals(last_salary, valorized, years_to_live_av
         if how_many_more_years < 0:
             how_many_more_years_context += f"cel {goal_name} zostanie osiągnięty w momencie przejścia na emeryturę\n"
         else:
-            how_many_more_years_context += f"{goal_name} wymaga dodatkowych {how_many_more_years:.2f} lat pracy po planowanym wieku emerytalnym\n"
+            how_many_more_years_context += f"{goal_name} wymaga dodatkowych {how_many_more_years:.1f} lat pracy po planowanym wieku emerytalnym\n"
     print(how_many_more_years_context)
     return how_many_more_years_context
 
@@ -54,6 +53,7 @@ def analyze_outputs(
         f"Zawrzyj informacje o stopie zastąpowania: {replacement_rate}\n Oraz o miesięcznej otrzymywanej emeryturze: {monthlyRetirement}"
         "Weź pod uwagę cele z poniższego słownika"
     )
+    print(system_instruction)
     config = types.GenerateContentConfig(
         system_instruction=system_instruction,
         # Wartość kreatywności może być wyższa (0.7), aby wygenerować bardziej zróżnicowane przykładowe dane
