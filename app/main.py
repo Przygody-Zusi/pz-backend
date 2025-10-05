@@ -102,7 +102,7 @@ def generate_profile_mock_endpoint(request: GenerateProfileRequest):
 @app.post("/api/generate-profile")
 def generate_profile_simple_endpoint(request: GenerateProfileRequest):
     """Simple endpoint for frontend to generate retirement profile"""
-    result = generate_profile_mock(request)
+    result = generate_profile(request)
     return {"profile": result}
 
 
