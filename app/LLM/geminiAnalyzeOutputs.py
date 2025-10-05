@@ -50,7 +50,7 @@ def analyze_outputs(
         "NIE GENERUJ żadnego dodatkowego tekstu ani wyjaśnień."
         "Pisz w liczbie drugiej - opis ma być skierowany do opisywanej osoby"
         f"Przeanalizuj które z poniższych celów może interesować odbiorcę bazując na jego cozekiwaniach oraz zawrzyj informacje na temat tego ile jeszcze lat potrzebuje pracować aby osiągnąć dany cel. {check_how_many_more_years_for_goals(last_salary, total_savings_contemporary, years_to_live_average)} \n\n"
-        f"Zawrzyj informacje o stopie zastąpowania: {replacement_rate}\n Oraz o miesięcznej otrzymywanej emeryturze: {monthlyRetirement}"
+        f"Zawrzyj informacje o stopie zastąpowania: {replacement_rate}\n Oraz o miesięcznej otrzymywanej emeryturze: {monthlyRetirement}\n"
         "Weź pod uwagę cele z poniższego słownika"
     )
     print(system_instruction)
