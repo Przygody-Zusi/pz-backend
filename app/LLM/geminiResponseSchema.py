@@ -85,6 +85,10 @@ response_schema = types.Schema(
                     type=types.Type.INTEGER,
                     description="Oczekiwany wiek przejścia na emeryturę.",
                 ),
+                "expected_retirement_salary": types.Schema(
+                    type=types.Type.NUMBER,
+                    description="Oczekiwana pensja na emeryturze.",
+                ),
                 "expected_life_status": types.Schema(
                     type=types.Type.NUMBER,
                     description="Oczekiwana jakość życia na emeryturze, wartość FLOAT w zakresie od 0.0 (żebrak) do 1.0 (milioner).",

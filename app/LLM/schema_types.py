@@ -32,6 +32,9 @@ class RetirementGoals(BaseModel):
     expected_retirement_age: int = Field(
         65, description="Oczekiwany wiek przejścia na emeryturę."
     )
+    expected_retirement_salary: float = Field(
+        2400, description="Oczekiwana pensja na emeryturze."
+    )
     expected_life_status: float = Field(
         ...,
         description="Oczekiwany standard życia na emeryturze (0.0 - najniższy, 1.0 - najwyższy).",
