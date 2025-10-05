@@ -124,3 +124,41 @@ def generate_suggestions_for_next_step(request: SuggestNextStepRequest):
         raise HTTPException(
             status_code=500, detail=f"Suggestion failed: {str(e)}. Sprawdź logs."
         )
+
+
+def generate_suggestions_for_next_step_mock(request: SuggestNextStepRequest):
+    """
+    Sugeruje kolejne kroki emerytalne na podstawie istniejącego profilu.
+    """
+    try:
+        from app.LLM.mock import suggestions
+
+        # Zwracamy surowy tekst JSON jako odpowiedź
+        return json.loads(suggestions)
+
+    except Exception as e:
+        print(f"Błąd sugerowania: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Suggestion failed: {str(e)}. Sprawdź logs."
+        )
+
+
+def generate_profile_mock(request: GenerateProfileRequest):
+    """
+    Generuje nowy profil emerytalny w formacie JSON na podstawie opisu użytkownika.
+    """
+    try:
+        # Wywołanie funkcji z LLM/geminiCreateInitialProfile.py
+        # Używa wbudowanej w tę funkcję konfiguracji wymuszającej JSON Schema
+        from app.LLM.mock import initial_profile
+
+        # Zwracamy surowy tekst JSON jako odpowiedź
+        print(initial_profile)
+        return json.loads(initial_profile)
+
+    except Exception as e:
+        print(f"Błąd generowania: {e}")
+        # Pamiętaj, że HTTPException z poprawnym statusem to standard FastAPI
+        raise HTTPException(
+            status_code=500, detail=f"Generation failed: {str(e)}. Sprawdź logs."
+        )
