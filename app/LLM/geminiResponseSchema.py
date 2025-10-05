@@ -8,11 +8,11 @@ contribution_period_schema = types.Schema(
         #     type=types.Type.STRING, description="Nazwa okresu składkowego."
         # ),
         "start_date": types.Schema(
-            type=types.Type.STRING,
+            type=types.Type.INTEGER,
             description="Data rozpoczęcia okresu w formacie YYYY",
         ),
         "end_date": types.Schema(
-            type=types.Type.STRING,
+            type=types.Type.INTEGER,
             description="Data zakończenia okresu w formacie YYYY",
         ),
         "gross_income": types.Schema(
@@ -45,7 +45,7 @@ response_schema = types.Schema(
             type=types.Type.OBJECT,
             properties={
                 "date_of_birth": types.Schema(
-                    type=types.Type.STRING,
+                    type=types.Type.INTEGER,
                     description="Data urodzenia w formacie YYYY",
                 ),
                 "gender": types.Schema(
