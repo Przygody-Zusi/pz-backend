@@ -6,6 +6,7 @@ from app.LLM.geminiCall import (
     generate_profile,
     update_profile,
     generate_suggestions_for_next_step,
+    generate_profile_based_on_info,
     generate_profile_mock,
     generate_suggestions_for_next_step_mock,
     GenerateProfileRequest,
@@ -65,6 +66,14 @@ def suggest_next_step_endpoint(request: SuggestNextStepRequest):
 
 
 @app.post(
+    "/api/LLM/generate_based_on_info",
+    response_description="Wygenerowany profil JSON",
+)
+def generate_profile_based_on_info_endpoint(request: SuggestNextStepRequest):
+    return generate_profile_based_on_info(request)
+
+
+@app.post(
     "/api/LLM/suggest_mock",
     response_description="Propozycje kolejnego etapu w zyciu człowieka",
 )
@@ -85,3 +94,11 @@ def generate_profile_simple_endpoint(request: GenerateProfileRequest):
     """Simple endpoint for frontend to generate retirement profile"""
     result = generate_profile_mock(request)
     return {"profile": result}
+
+
+@app.post(
+    "/api/LLM/generate_based_on_info_mock",
+    response_description="Wygenerowany profil JSON",
+)
+def generate_profile_mock_endpoint2(request: SuggestNextStepRequest):
+    return generate_profile_mock(request)
