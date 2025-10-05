@@ -19,12 +19,12 @@ from app.LLM.geminiCall import (
 )
 
 logger = logging.getLogger("analysis_processor")
-logger.setLevel(logging.INFO)  # <-- kluczowy krok
+logger.setLevel(logging.INFO)
 
 file_handler = RotatingFileHandler(
     "analysis.log", maxBytes=1024 * 1024 * 10, backupCount=5, encoding="utf-8"  # 10MB
 )
-file_handler.setLevel(logging.INFO)  # <-- też ważne
+file_handler.setLevel(logging.INFO)
 
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
