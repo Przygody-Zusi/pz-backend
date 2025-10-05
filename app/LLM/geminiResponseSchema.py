@@ -61,6 +61,10 @@ response_schema = types.Schema(
                     type=types.Type.INTEGER,
                     description="Aktualny (domyślny) wiek przejścia na emeryturę.",
                 ),
+                "initial_amount": types.Schema(
+                    type=types.Type.NUMBER,
+                    description="Wysokość zgromadzonych środków na koncie i na subkoncie w ZUS.",
+                ),
             },
             required=[
                 "date_of_birth",
