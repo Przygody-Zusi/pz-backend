@@ -9,6 +9,8 @@ from app.LLM.geminiCall import (
     generate_profile_based_on_info,
     generate_profile_mock,
     generate_suggestions_for_next_step_mock,
+    analyze_goals,
+    AnalyzeGoalRequest,
     GenerateProfileRequest,
     UpdateProfileRequest,
     SuggestNextStepRequest,
@@ -71,6 +73,14 @@ def suggest_next_step_endpoint(request: SuggestNextStepRequest):
 )
 def generate_profile_based_on_info_endpoint(request: SuggestNextStepRequest):
     return generate_profile_based_on_info(request)
+
+
+@app.post(
+    "/api/LLM/analyze_goals",
+    response_description="Propozycje kolejnego etapu w zyciu człowieka",
+)
+def analyze_goals_endpoint(request: AnalyzeGoalRequest):
+    return analyze_goals(request)
 
 
 @app.post(
