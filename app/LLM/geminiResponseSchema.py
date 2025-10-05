@@ -17,7 +17,7 @@ contribution_period_schema = types.Schema(
         ),
         "gross_income": types.Schema(
             type=types.Type.NUMBER,
-            description="Miesięczny lub roczny dochód brutto w tym okresie.",
+            description="Roczny dochód brutto w tym okresie.",
         ),
         "employment_type": types.Schema(
             type=types.Type.STRING,
@@ -71,6 +71,7 @@ response_schema = types.Schema(
                 "gender",
                 "employment_start_date",
                 "actual_retirement_age",
+                "initial_amount",
             ],
         ),
         # --- Sekcja RETIREMENT_GOALS ---
