@@ -13,6 +13,7 @@ from app.LLM.geminiCreateInitialProfile import generate_initial_profile
 from app.LLM.geminiUpdateProfile import update_user_profile
 from app.LLM.geminiSuggestNextStep import suggest_next_contribution_period
 from app.LLM.schema_types import UserProfile
+from app.LLM.geminiAnalyzeOutputs import analyze_outputs
 
 # --- INICJALIZACJA I KONFIGURACJA KLIENTA ---
 load_dotenv()
@@ -53,6 +54,70 @@ class SuggestNextStepRequest(BaseModel):
         ...,
         description="Istniejący profil JSON, do którego ma zostać sugerowany następny etap.",
     )
+
+
+class AnalyzeGoalRequest(BaseModel):
+    """Model dla endpointu /analyze"""
+
+    profile: UserProfile = Field(
+        ...,
+        description="Istniejący profil JSON, który ma zostać analizowany.",
+    )
+    raw: float = Field(
+        ...,
+        description="cała odłożona pensja na emeryturze",
+    )
+    total_savings_contemporary: float = Field(
+        ...,
+        description="suma odłożonych składków na emeryturze w termina złotego 2025",
+    )
+    monthlyRetirement: float = Field(
+        ...,
+        description="miesięczna pensja na emeryturze",
+    )
+    yearsToLiveAverage: float = Field(
+        ...,
+        description="Średnia liczba lat życia na emeryturze",
+    )
+    replacementRate: float = Field(
+        ...,
+        description="Stopa zastępowania",
+    )
+    avgMonthlySalary: float = Field(
+        ...,
+        description="Srednia miesieczna pensja",
+    )
+
+
+def analyze_goals(request: AnalyzeGoalRequest):
+    try:
+        if len(request.profile.contribution_periods) == 0:
+            last_salary = request.avgMonthlySalary
+        else:
+            last_salary = request.profile.contribution_periods[-1].gross_income
+        total_savings_contemporary = request.total_savings_contemporary
+        years_to_live_average = request.yearsToLiveAverage
+        retirement_goals = request.profile.retirement_goals
+        replacement_rate = request.replacementRate
+        monthlyRetirement = request.monthlyRetirement
+        response = analyze_outputs(
+            client,
+            MODEL_NAME,
+            last_salary,
+            total_savings_contemporary,
+            years_to_live_average,
+            retirement_goals,
+            replacement_rate,
+            monthlyRetirement,
+        )
+        return {"analisys": response}
+
+    except Exception as e:
+        print(f"Błąd generowania: {e}")
+        # Pamiętaj, että HTTPException z poprawnym statusem to standard FastAPI
+        raise HTTPException(
+            status_code=500, detail=f"Generation failed: {str(e)}. Sprawdź logs."
+        )
 
 
 # --- ENDPOINTY ---

@@ -4,7 +4,8 @@ from typing import List
 # --- Enumy/Typy dla pól o zdefiniowanych wartościach ---
 # Używamy typowania str zamiast Enum, aby uprościć walidację w Pydantic
 GenderType = str  # Oczekiwane: "male" lub "female"
-EmploymentType = str  # Oczekiwane: "employment_contract", "self_employed", itd.
+# Oczekiwane: "employment_contract", "self_employed", itd.
+EmploymentType = str
 
 
 # --- 1. MODELE CZĘŚCIOWE ---
@@ -13,13 +14,16 @@ EmploymentType = str  # Oczekiwane: "employment_contract", "self_employed", itd.
 class ProfileData(BaseModel):
     """Część 'profile' - dane podstawowe."""
 
-    date_of_birth: str = Field(..., description="Data urodzenia (YYYY).")
+    date_of_birth: int = Field(..., description="Data urodzenia (YYYY).")
     gender: GenderType = Field(..., description="Płeć: male|female.")
-    employment_start_date: str = Field(
+    employment_start_date: int = Field(
         ..., description="Data rozpoczęcia pracy (YYYY)."
     )
     actual_retirement_age: int = Field(
         65, description="Faktyczny, ustawowy wiek emerytalny."
+    )
+    initial_amount: float = Field(
+        0.0, description="Początkowa kwota oszczędności emerytalnych."
     )
 
 
@@ -44,8 +48,8 @@ class RetirementGoals(BaseModel):
 class ContributionPeriod(BaseModel):
     """Element listy 'contribution_periods'."""
 
-    start_date: str = Field(..., description="Rok rozpoczęcia okresu (YYYY).")
-    end_date: str = Field(..., description="Rok zakończenia okresu (YYYY).")
+    start_date: int = Field(..., description="Rok rozpoczęcia okresu (YYYY).")
+    end_date: int = Field(..., description="Rok zakończenia okresu (YYYY).")
     gross_income: float = Field(..., description="Przychód brutto w tym okresie.")
     employment_type: EmploymentType = Field(
         ...,
