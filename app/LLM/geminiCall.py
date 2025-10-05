@@ -99,7 +99,7 @@ def analyze_goals(request: AnalyzeGoalRequest):
         retirement_goals = request.profile.retirement_goals
         replacement_rate = request.replacementRate
         monthlyRetirement = request.monthlyRetirement
-        return analyze_outputs(
+        response = analyze_outputs(
             client,
             MODEL_NAME,
             last_salary,
@@ -109,6 +109,7 @@ def analyze_goals(request: AnalyzeGoalRequest):
             replacement_rate,
             monthlyRetirement,
         )
+        return {"analisys": response}
 
     except Exception as e:
         print(f"Błąd generowania: {e}")
