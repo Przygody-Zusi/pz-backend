@@ -1,0 +1,21 @@
+{
+    "profile": {
+        "date_of_birth": "YYYY",
+        "gender": "male|female",
+        "employment_start_date": "YYYY",
+        "actual_retirement_age": 65
+    },
+    "retirement_goals": {
+        "initial_prompt": "string",
+        "expected_retirement_age": 65,
+        "expected_life_status": "<0.0;1.0>"
+    },
+    "contribution_periods": [
+        {
+            "start_date": "YYYY",
+            "end_date": "YYYY",
+            "gross_income": 0.0,
+            "employment_type": "employment_contract|self_employed|mandate_contract|maternity_leave|parental_leave|no_employment"
+        }
+    ]
+}
