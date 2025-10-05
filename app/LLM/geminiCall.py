@@ -63,11 +63,9 @@ class AnalyzeGoalRequest(BaseModel):
         ...,
         description="Istniejący profil JSON, który ma zostać analizowany.",
     )
-    raw: float = (
-        Field(
-            ...,
-            description="cała odłożona pensja na emeryturze",
-        ),
+    raw: float = Field(
+        ...,
+        description="cała odłożona pensja na emeryturze",
     )
     total_savings_contemporary: float = Field(
         ...,
@@ -77,7 +75,10 @@ class AnalyzeGoalRequest(BaseModel):
         ...,
         description="miesięczna pensja na emeryturze",
     )
-    yearsToLiveAverage: float = Field()
+    yearsToLiveAverage: float = Field(
+        ...,
+        description="Średnia liczba lat życia na emeryturze",
+    )
     replacementRate: float = Field(
         ...,
         description="Stopa zastępowania",
