@@ -19,7 +19,8 @@ app = FastAPI()
 # Allow your frontend origin — for dev you can use *
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # or ["http://localhost:3000", "http://127.0.0.1:5173"]
+    # or ["http://localhost:3000", "http://127.0.0.1:5173"]
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -77,3 +78,10 @@ def suggest_next_step_mock_endpoint(request: SuggestNextStepRequest):
 )
 def generate_profile_mock_endpoint(request: GenerateProfileRequest):
     return generate_profile_mock(request)
+
+
+@app.post("/api/generate-profile")
+def generate_profile_simple_endpoint(request: GenerateProfileRequest):
+    """Simple endpoint for frontend to generate retirement profile"""
+    result = generate_profile_mock(request)
+    return {"profile": result}
