@@ -79,6 +79,29 @@ def generate_profile(request: GenerateProfileRequest):
         )
 
 
+def generate_profile_based_on_info(request: SuggestNextStepRequest):
+    """
+    Generuje nowy profil emerytalny w formacie JSON na podstawie bazowych informacji.
+    """
+    try:
+        # Wywołanie funkcji z LLM/geminiCreateInitialProfile.py
+        # Używa wbudowanej w tę funkcję konfiguracji wymuszającej JSON Schema
+        new_profile_json = generate_initial_profile(
+            client, MODEL_NAME, str(request.old_profile)
+        )
+
+        # Zwracamy surowy tekst JSON jako odpowiedź
+        print(new_profile_json)
+        return json.loads(new_profile_json)
+
+    except Exception as e:
+        print(f"Błąd generowania: {e}")
+        # Pamiętaj, że HTTPException z poprawnym statusem to standard FastAPI
+        raise HTTPException(
+            status_code=500, detail=f"Generation failed: {str(e)}. Sprawdź logs."
+        )
+
+
 def update_profile(request: UpdateProfileRequest):
     """
     Aktualizuje istniejący profil JSON na podstawie prośby użytkownika o zmianę.
@@ -143,7 +166,7 @@ def generate_suggestions_for_next_step_mock(request: SuggestNextStepRequest):
         )
 
 
-def generate_profile_mock(request: GenerateProfileRequest):
+def generate_profile_mock(request):
     """
     Generuje nowy profil emerytalny w formacie JSON na podstawie opisu użytkownika.
     """
